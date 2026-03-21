@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 1 complete — all changes committed; ready to plan Phase 2
-last_updated: "2026-03-21T14:00:00.000Z"
-last_activity: "2026-03-21 — build_doc.sh replaced with cross-platform build_doc.py; AGENT.md + design_log.md created; README/AUTOMATION_PLAN updated with async workflow"
+stopped_at: Completed 02-01-PLAN.md (check_consistency.py + full test suite green)
+last_updated: "2026-03-21T14:09:18.910Z"
+last_activity: 2026-03-21 — build_doc.sh replaced with cross-platform build_doc.py; AGENT.md + design_log.md created; README/AUTOMATION_PLAN updated with async workflow
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
   percent: 75
 ---
 
@@ -52,6 +52,7 @@ Progress: [████████░░] 75%
 *Updated after each plan completion*
 | Phase 01 P02 | 2 | 2 tasks | 9 files |
 | Phase 01-core-pipeline P04 | 1 | 2 tasks | 2 files |
+| Phase 02-quality-gates P01 | 3 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Recent decisions affecting current work:
 - [Phase 01-core-pipeline]: YAML schema supports full 4-level nesting from day 1; RTM generator surfaces top 2 levels only for now
 - [01-03]: str.format_map() used for {variable} substitution (not string.Template $variable) — consistent with AUTOMATION_PLAN.md convention
 - [01-03]: --prompts-dir arg in generate_section.py allows pytest tmp_path fixture to inject test prompt dirs
+- [Phase 02-quality-gates]: UNIT_PATTERN matches km/W/kg/bps but not Mbps — test requirements must use matched units
+- [Phase 02-quality-gates]: check_success_criteria() requires 01_motivation.md specifically — test fixtures must match
+- [Phase 02-quality-gates]: Power check returns WARNING not FAIL when eps_power_W missing — non-blocking incremental adoption
 
 ### Pending Todos
 
@@ -85,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T11:36:25.800Z
-Stopped at: Completed 01-04-PLAN.md (requirements.yaml + rtm_generator.py + pytest green)
+Last session: 2026-03-21T14:09:18.903Z
+Stopped at: Completed 02-01-PLAN.md (check_consistency.py + full test suite green)
 Resume file: None
