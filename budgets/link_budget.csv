@@ -1,0 +1,10 @@
+parameter,value,unit,note
+frequency_GHz,0.0,GHz,from mission_config
+tx_power_dBm,0.0,dBm,from mission_config
+tx_gain_dBi,0.0,dBi,TBD
+rx_gain_dBi,0.0,dBi,TBD
+rx_noise_temp_K,0.0,K,TBD
+altitude_km,0.0,km,from mission_config
+data_rate_bps,0,bps,TBD
+required_Eb_N0_dB,0.0,dB,TBD
+link_margin_dB,0.0,dB,computed by link_budget.py

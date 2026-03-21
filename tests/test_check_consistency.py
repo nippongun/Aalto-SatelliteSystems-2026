@@ -105,14 +105,17 @@ def test_altitude_consistent_passes(tmp_path):
 
     config_path = write_config(tmp_path)
 
-    # Write requirements with units so requirement_units check passes
-    # Use a unit that matches UNIT_PATTERN (e.g. "km", "W", "kg") — "Mbps" is not in pattern
+    # Write requirements with units and verification_method so all checks pass
     objectives = [
         {
             "id": "OBJ-01",
             "text": "Test objective",
             "requirements": [
-                {"id": "REQ-01", "text": "The satellite shall transmit at 550 km altitude."},
+                {
+                    "id": "REQ-01",
+                    "text": "The satellite shall transmit at 550 km altitude.",
+                    "verification_method": "analysis",
+                },
             ],
         }
     ]
@@ -237,13 +240,17 @@ def test_missing_budget_skipped(tmp_path):
 
     config_path = write_config(tmp_path)
 
-    # Write valid requirements — use a unit matched by UNIT_PATTERN (km, W, kg, etc.)
+    # Write valid requirements — include verification_method so all checks pass
     objectives = [
         {
             "id": "OBJ-01",
             "text": "Test objective",
             "requirements": [
-                {"id": "REQ-01", "text": "The satellite shall operate at 550 km altitude."},
+                {
+                    "id": "REQ-01",
+                    "text": "The satellite shall operate at 550 km altitude.",
+                    "verification_method": "analysis",
+                },
             ],
         }
     ]
@@ -288,8 +295,11 @@ def test_report_always_written(tmp_path):
             "id": "OBJ-01",
             "text": "Test objective",
             "requirements": [
-                # Use a unit matched by UNIT_PATTERN (km, W, kg, etc.) — not "Mbps"
-                {"id": "REQ-01", "text": "The satellite shall operate at 550 km altitude."},
+                {
+                    "id": "REQ-01",
+                    "text": "The satellite shall operate at 550 km altitude.",
+                    "verification_method": "analysis",
+                },
             ],
         }
     ]

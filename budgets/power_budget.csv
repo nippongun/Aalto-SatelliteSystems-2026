@@ -1,0 +1,8 @@
+subsystem,power_W,margin_pct,mode,note
+OBC,0.0,10,nominal,TBD
+EPS_control,0.0,10,nominal,TBD
+COM_rx,0.0,10,nominal,TBD
+COM_tx,0.0,10,nominal,TBD
+ADCS,0.0,10,nominal,TBD
+Payload,0.0,10,nominal,TBD
+Thermal,0.0,10,nominal,TBD

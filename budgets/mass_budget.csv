@@ -1,0 +1,9 @@
+subsystem,mass_kg,margin_pct,note
+Structure,0.0,20,TBD
+OBC,0.0,20,TBD
+EPS,0.0,20,TBD
+COM,0.0,20,TBD
+ADCS,0.0,20,TBD
+Payload,0.0,20,TBD
+Thermal,0.0,20,TBD
+Harness,0.0,20,TBD

@@ -20,6 +20,7 @@ objectives:
     requirements:
       - id: REQ-01
         text: "The satellite shall [...]"
+        verification_method: analysis  # test | analysis | inspection | demonstration
 ```
 
 Output the YAML block first, then a plain-English narrative explaining the rationale for each objective.

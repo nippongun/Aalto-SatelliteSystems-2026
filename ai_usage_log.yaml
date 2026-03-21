@@ -1,0 +1,15 @@
+# ai_usage_log.yaml — append one entry per session
+# Used by: scripts/log_ai_usage.py → generates AI usage chapter
+#
+# Schema:
+#   date: YYYY-MM-DD
+#   tool: Claude Code (claude-sonnet-4-6) | other
+#   sections: list of section files touched
+#   usage: what was generated or changed (one sentence)
+#   validation: how the student verified the output (one sentence)
+
+- date: 2026-03-21
+  tool: "Claude Code (claude-sonnet-4-6)"
+  sections: [design_log.md, KNOWLEDGE_BASE.md, AUTOMATION_PLAN.md, AGENT.md, README.md]
+  usage: "Repository scaffolding, toolchain setup, knowledge base summary from course PDFs, workflow documentation"
+  validation: "Cross-checked against original PDFs in vault/ and course SoW"

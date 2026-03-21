@@ -1,5 +1,7 @@
 # requirements/requirements.yaml — Mission requirements structured for RTM generation
 # Schema: objectives → requirements → observation_reqs (optional) → instrument_reqs (optional)
+# Every requirement must have: id, text (with number+unit), verification_method
+# Verification methods: test | analysis | inspection | demonstration
 # Edit this file as the mission concept is defined.
 # Run: python scripts/rtm_generator.py
 
@@ -9,16 +11,21 @@ objectives:
     requirements:
       - id: REQ-01
         text: "The satellite shall [TBD primary function] with [TBD parameter] ≥ [TBD value] [TBD unit]"
+        verification_method: analysis
         observation_reqs:
           - id: OBS-01
             text: "The payload shall [TBD observation parameter] at [TBD rate/resolution]"
+            verification_method: test
       - id: REQ-02
         text: "The satellite shall cover [TBD coverage area] with revisit time ≤ [TBD] hours"
+        verification_method: analysis
 
   - id: OBJ-02
     text: "TBD — Data downlink objective (replace when link budget is defined)"
     requirements:
       - id: REQ-03
         text: "The downlink data rate shall be ≥ 1 Mbps at [TBD] km altitude"
+        verification_method: test
       - id: REQ-04
         text: "The satellite shall transmit collected data to ground within 24 hours of acquisition"
+        verification_method: demonstration

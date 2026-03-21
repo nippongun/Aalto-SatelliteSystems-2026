@@ -252,6 +252,74 @@ def check_success_criteria(content_dir: pathlib.Path) -> CheckResult:
     )
 
 
+def check_requirement_verification(req_data: dict) -> CheckResult:
+    """Check that every requirement has a verification_method field."""
+    missing = []
+    for obj in req_data.get("objectives", []):
+        for req in obj.get("requirements", []):
+            if not req.get("verification_method"):
+                missing.append(req.get("id", "unknown"))
+
+    if missing:
+        return CheckResult(
+            "Requirement verification methods",
+            "FAIL",
+            f"Requirements missing a verification_method: {', '.join(missing)}",
+            [],
+        )
+    return CheckResult(
+        "Requirement verification methods",
+        "PASS",
+        "All requirements have a verification_method.",
+        [],
+    )
+
+
+def check_req_ids_in_product_assurance(
+    req_data: dict, content_dir: pathlib.Path
+) -> CheckResult:
+    """Check that every REQ-XX id from requirements.yaml appears in 06_product_assurance.md."""
+    assurance_path = content_dir / "06_product_assurance.md"
+    if not assurance_path.exists():
+        return CheckResult(
+            "REQ traceability to product assurance",
+            "WARNING",
+            "06_product_assurance.md not found — skipped",
+            [],
+        )
+
+    text = assurance_path.read_text(encoding="utf-8")
+    req_ids = []
+    for obj in req_data.get("objectives", []):
+        for req in obj.get("requirements", []):
+            req_id = req.get("id")
+            if req_id:
+                req_ids.append(req_id)
+
+    if not req_ids:
+        return CheckResult(
+            "REQ traceability to product assurance",
+            "WARNING",
+            "No requirements found in requirements.yaml — skipped",
+            [],
+        )
+
+    unverified = [rid for rid in req_ids if rid not in text]
+    if unverified:
+        return CheckResult(
+            "REQ traceability to product assurance",
+            "FAIL",
+            f"Requirements not referenced in 06_product_assurance.md: {', '.join(unverified)}",
+            [(assurance_path.name, 0)],
+        )
+    return CheckResult(
+        "REQ traceability to product assurance",
+        "PASS",
+        f"All {len(req_ids)} requirement IDs found in 06_product_assurance.md.",
+        [],
+    )
+
+
 def check_ai_usage_section(content_dir: pathlib.Path) -> CheckResult:
     """Check that at least one content file has an AI usage heading."""
     for md_file in sorted(content_dir.glob("*.md")):
@@ -286,13 +354,15 @@ def run_all_checks(
     mass_budget_path: pathlib.Path,
     power_budget_path: pathlib.Path,
 ) -> list[CheckResult]:
-    """Run all seven checks and return a list of CheckResult objects."""
+    """Run all nine checks and return a list of CheckResult objects."""
     return [
         check_altitude_consistent(content_dir, config),
         check_mass_budget(config, mass_budget_path),
         check_power_budget(config, power_budget_path),
         check_requirement_units(req_data),
         check_objective_coverage(req_data),
+        check_requirement_verification(req_data),
+        check_req_ids_in_product_assurance(req_data, content_dir),
         check_success_criteria(content_dir),
         check_ai_usage_section(content_dir),
     ]
