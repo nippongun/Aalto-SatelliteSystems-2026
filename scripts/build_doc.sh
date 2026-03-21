@@ -1,7 +1,7 @@
 #!/bin/bash
 # scripts/build_doc.sh — Assemble Markdown sections and build styled DOCX
 # Usage: bash scripts/build_doc.sh
-# Requires: pandoc 3.x, templates/course_template.docx, content/0*.md
+# Requires: pandoc 3.x, templates/reference_base.docx, content/0*.md
 
 set -euo pipefail
 
@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
 CONTENT_GLOB="$REPO_ROOT/content/0*.md"
-TEMPLATE="$REPO_ROOT/templates/course_template.docx"
+TEMPLATE="$REPO_ROOT/templates/reference_base.docx"
 OUTPUT_DIR="$REPO_ROOT/output"
 OUTPUT_FILE="$OUTPUT_DIR/mission_feasibility_$(date +%Y%m%d).docx"
 TMP_FILE="/tmp/full_document.md"
