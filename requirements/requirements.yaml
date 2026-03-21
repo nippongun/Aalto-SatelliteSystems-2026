@@ -1,0 +1,24 @@
+# requirements/requirements.yaml — Mission requirements structured for RTM generation
+# Schema: objectives → requirements → observation_reqs (optional) → instrument_reqs (optional)
+# Edit this file as the mission concept is defined.
+# Run: python scripts/rtm_generator.py
+
+objectives:
+  - id: OBJ-01
+    text: "TBD — Primary mission objective (replace when mission concept is defined)"
+    requirements:
+      - id: REQ-01
+        text: "The satellite shall [TBD primary function] with [TBD parameter] ≥ [TBD value] [TBD unit]"
+        observation_reqs:
+          - id: OBS-01
+            text: "The payload shall [TBD observation parameter] at [TBD rate/resolution]"
+      - id: REQ-02
+        text: "The satellite shall cover [TBD coverage area] with revisit time ≤ [TBD] hours"
+
+  - id: OBJ-02
+    text: "TBD — Data downlink objective (replace when link budget is defined)"
+    requirements:
+      - id: REQ-03
+        text: "The downlink data rate shall be ≥ 1 Mbps at {orbit_altitude_km} km altitude"
+      - id: REQ-04
+        text: "The satellite shall transmit collected data to ground within 24 hours of acquisition"
