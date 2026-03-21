@@ -31,7 +31,7 @@ pandoc content/mission.md -o output/mission_feasibility.docx \
 ```
 Aalto-SatelliteSystems-2026/
 ├── templates/
-│   └── reference_base.docx           # Styles-only, no content (extracted from vault DOCX)
+│   └── course_template.docx          # Full SoW styles + header/footer, no body content
 ├── content/
 │   ├── 01_motivation.md
 │   ├── 02_requirements.md
@@ -46,7 +46,7 @@ Aalto-SatelliteSystems-2026/
 │   ├── power_budget.csv
 │   └── link_budget.csv
 ├── scripts/
-│   ├── build_doc.sh                  # Assembles all .md → .docx
+│   ├── build_doc.py                  # Assembles all .md → .docx
 │   ├── check_consistency.py          # Section consistency checker
 │   ├── rtm_generator.py              # RTM from requirements YAML
 │   ├── link_budget.py
@@ -61,21 +61,15 @@ Aalto-SatelliteSystems-2026/
 ```
 
 ### Template Extraction Steps
-1. Strip the vault DOCX body content into `templates/reference_base.docx` using python-docx, keeping styles and page layout (`sectPr`):
-   ```python
-   from docx import Document
-   from docx.oxml.ns import qn
-
-   doc = Document("vault/2026 Statement of Work for Mission Feasibility Study.docx")
-   body = doc.element.body
-   sectPr = body.find(qn("w:sectPr"))      # preserve page margins / size
-   for child in list(body):
-       body.remove(child)
-   if sectPr is not None:
-       body.append(sectPr)
-   doc.save("templates/reference_base.docx")
-   ```
-   Result: 0 paragraphs, all heading styles intact, correct page layout.
+1. `templates/course_template.docx` is built by merging styles from the vault SoW DOCX into a pandoc-generated base using `lxml` (raw XML manipulation). It contains:
+   - SoW `docDefaults`: Arial 11pt, 1.15× line spacing
+   - SoW heading styles (H1–H6) with correct sizes and grey colour palette
+   - SoW Title (26pt) and Subtitle (15pt grey)
+   - All pandoc-specific styles (BodyText, Compact, BlockText, etc.) updated to Arial
+   - SoW page header: "A!" logo (Arial Black) + course name + live-document hyperlink placeholder + horizontal rule
+   - A4 portrait, 1-inch margins on all sides
+   - Embedded Arial Black TTF font
+   Result: zero body paragraphs, all styles and page layout intact.
 2. Map Markdown heading levels to DOCX heading styles:
    - `#` → Heading 1
    - `##` → Heading 2
@@ -84,18 +78,13 @@ Aalto-SatelliteSystems-2026/
    - Tables → Table style from template
 3. Test round-trip: simple `test.md` → `pandoc` → inspect output styling
 
-### Build Script (`scripts/build_doc.sh`)
+### Build Script (`scripts/build_doc.py`)
 ```bash
-#!/bin/bash
-# Concatenate all content sections with section breaks, then convert
-cat content/0*.md > /tmp/full_document.md
-pandoc /tmp/full_document.md \
-  -o output/mission_feasibility_$(date +%Y%m%d).docx \
-  --reference-doc=templates/reference_base.docx \
-  --toc --toc-depth=3 \
-  --from markdown+tables+pipe_tables
-echo "Built: output/mission_feasibility_$(date +%Y%m%d).docx"
+python scripts/build_doc.py
+# Optional overrides:
+# python scripts/build_doc.py --config path/to/config.yaml --output-dir path/to/out/
 ```
+Cross-platform Python script. Reads `mission_config.yaml` for metadata, assembles `content/0*.md` in sorted order via `tempfile`, calls pandoc via `subprocess.run`. Works on Windows, Linux, macOS.
 
 ---
 
@@ -380,6 +369,101 @@ Prompts available:
 - `prompts/review_section.md` (quality check)
 - `prompts/rubric_assessment.md`
 - `prompts/ai_usage_chapter.md`
+
+---
+
+## F. Async Collaboration & Human-in-the-Loop
+
+### The model
+
+Three students, no scheduled meetings, all have jobs. The document is produced through rapid async iterations:
+
+```
+Students discuss & decide          (WhatsApp / async)
+        │
+        ▼
+Student captures decision          → design_log.md
+        │
+        ▼
+Student opens Claude Code          → briefs Claude: "read the design log, here's what we decided"
+        │
+        ▼
+Claude reads repo context          → design_log.md, mission_config.yaml, content/, requirements/
+        │
+        ▼
+Claude does the work               → updates config, writes/revises sections, runs tools, commits
+        │
+        ▼
+Student reviews output             → reads built DOCX, scans git diff
+        │
+        ▼
+Teammates pull & read              → leave notes in design_log.md or fix inline
+        │
+        └──────────────────────────► next iteration
+```
+
+The student acting as driver in a Claude Code session is the human-in-the-loop. They brief Claude, approve the output, and commit. Other teammates review asynchronously via git and leave their input in `design_log.md` for the next session.
+
+### F1. Design log (`design_log.md`)
+
+A running plain-text log at the repo root. Students append entries when decisions are made. Claude reads it at the start of each session for context.
+
+Entry format:
+```markdown
+## YYYY-MM-DD — <topic>
+**Decision:** <what was decided>
+**Participants:** <who was involved>
+**Context:** <why, what alternatives were considered>
+**Action for AI:** <what Claude should do with this>
+**Status:** Pending / Done
+```
+
+Rules:
+- Append only — never edit or delete old entries
+- Mark `Status: Done` once Claude has acted on an entry
+- Short is fine: one sentence decisions are valid
+- If a decision changes a config value, say which key
+
+Claude reads `design_log.md` at the start of every session. Any entry with `Status: Pending` is work to be picked up.
+
+### F2. Student roles in a session
+
+One student acts as **driver** per session:
+1. Pull latest from git
+2. Open Claude Code in the repo root
+3. Say: *"Read the design log and the current state of the repo. Here's what we decided since last session: [summary]. Do X."*
+4. Review what Claude produces (diff + built DOCX)
+5. Commit and push
+
+Other students are **reviewers**:
+1. Pull after driver pushes
+2. Read the DOCX or the diff
+3. Add notes or corrections to `design_log.md` for the next session
+
+### F3. What AI does vs what students decide
+
+| Students decide | AI does |
+|-----------------|---------|
+| Mission concept and application | Write section drafts from prompts |
+| Payload choice | Run trade-off calculations |
+| Orbit parameters | Compute orbital analysis, link budget |
+| Requirements wording | Format into requirements.yaml, generate RTM |
+| Which sections need rewriting | Rewrite them given the feedback |
+| Final approval before submission | Run consistency checker, pre-submit checklist, build DOCX, git tag |
+
+Students **never** write section text from scratch — they feed decisions and Claude drafts. Students **always** read and approve before committing.
+
+### F4. Section review status
+
+Each content file can carry a review header comment:
+
+```markdown
+<!-- reviewed: Simon 2026-03-25 -->
+# Mission Motivation and Objectives
+...
+```
+
+The pre-submit checklist (CHECK-02) will flag any section without a reviewed marker as unverified before submission.
 
 ---
 
