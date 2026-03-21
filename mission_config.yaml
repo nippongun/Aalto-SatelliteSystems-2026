@@ -1,0 +1,14 @@
+# mission_config.yaml — Single source of truth for all mission parameters
+# Edit this file to update all generated outputs. Mission concept TBD.
+
+mission_name: "TBD"
+satellite_class: "CubeSat"
+mass_kg: 8
+orbit_type: "LEO"
+orbit_altitude_km: 550
+inclination_deg: 97.6
+mission_application: "TBD"
+payload_type: "TBD"
+frequency_GHz: 8.0
+tx_power_dBm: 30
+ground_station: "Aalto"
