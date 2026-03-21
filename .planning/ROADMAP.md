@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01-PLAN.md — Install pandoc, scaffold directories, extract course template styles, create Wave 0 test infrastructure
 - [ ] 01-02-PLAN.md — Write `scripts/build_doc.sh` and stub `content/0*.md` section files; verify Pandoc round-trip
-- [ ] 01-03-PLAN.md — Create `mission_config.yaml` and `scripts/generate_section.py`; write all `prompts/*.md` templates
+- [x] 01-03-PLAN.md — Create `mission_config.yaml` and `scripts/generate_section.py`; write all `prompts/*.md` templates
 - [ ] 01-04-PLAN.md — Create `requirements/requirements.yaml` schema and `scripts/rtm_generator.py`; verify RTM table output
 
 ### Phase 2: Quality Gates

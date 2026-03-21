@@ -70,6 +70,8 @@ Recent decisions affecting current work:
 - [Phase 01]: REPO_ROOT derived from SCRIPT_DIR in build_doc.sh for portability regardless of cwd
 - [Phase 01-core-pipeline]: Use req['id'] over req.get('id') for fail-loud KeyError on malformed YAML requirements
 - [Phase 01-core-pipeline]: YAML schema supports full 4-level nesting from day 1; RTM generator surfaces top 2 levels only for now
+- [01-03]: str.format_map() used for {variable} substitution (not string.Template $variable) — consistent with AUTOMATION_PLAN.md convention
+- [01-03]: --prompts-dir arg in generate_section.py allows pytest tmp_path fixture to inject test prompt dirs
 
 ### Pending Todos
 
