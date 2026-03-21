@@ -1,0 +1,5 @@
+output/
+/tmp/full_document.md
+__pycache__/
+*.pyc
+.pytest_cache/
