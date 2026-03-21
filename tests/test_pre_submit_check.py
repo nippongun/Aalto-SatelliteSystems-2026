@@ -1,26 +1,50 @@
-"""tests/test_pre_submit_check.py — Stub tests for scripts/pre_submit_check.py.
+"""tests/test_pre_submit_check.py — Full test suite for scripts/pre_submit_check.py.
 
-These stubs are intentionally skipped until plan 02-02 implements the script.
-Do NOT add assertions here — filled in by plan 02-02.
+Tests CHECK-02 (milestone-aware checklist) and COLLAB-02 (review marker item).
 """
-import pytest
+import subprocess
+import sys
+
+SCRIPT = "scripts/pre_submit_check.py"
 
 
-@pytest.mark.skip(reason="pre_submit_check.py not yet implemented")
 def test_idea_review_items():
-    pass
+    result = subprocess.run(
+        [sys.executable, SCRIPT, "--milestone", "idea_review"],
+        capture_output=True,
+        text=True,
+    )
+    assert "mission goal" in result.stdout.lower()
+    assert "target orbit" in result.stdout.lower()
+    assert "success criteria" in result.stdout.lower()
+    assert "ai usage" in result.stdout.lower()
+    assert "review marker" in result.stdout.lower()
 
 
-@pytest.mark.skip(reason="pre_submit_check.py not yet implemented")
 def test_exits_nonzero():
-    pass
+    result = subprocess.run(
+        [sys.executable, SCRIPT, "--milestone", "idea_review"],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 1
 
 
-@pytest.mark.skip(reason="pre_submit_check.py not yet implemented")
 def test_unknown_milestone():
-    pass
+    result = subprocess.run(
+        [sys.executable, SCRIPT, "--milestone", "unknown_milestone"],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode != 0
 
 
-@pytest.mark.skip(reason="pre_submit_check.py not yet implemented")
 def test_review_marker_item_present():
-    pass
+    result = subprocess.run(
+        [sys.executable, SCRIPT, "--milestone", "idea_review"],
+        capture_output=True,
+        text=True,
+    )
+    stdout_lower = result.stdout.lower()
+    assert "review" in stdout_lower
+    assert "marker" in stdout_lower
