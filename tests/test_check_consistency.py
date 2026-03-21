@@ -95,18 +95,24 @@ def test_altitude_consistent_passes(tmp_path):
     """Two content files with same altitude value → exit 0, PASS in report."""
     content_dir = tmp_path / "content"
     content_dir.mkdir()
-    (content_dir / "01.md").write_text("The orbit altitude is 550 km.\nMinimal success: basic comms. Full success: all ops.")
-    (content_dir / "02.md").write_text("Operations at altitude 550 km ensure full coverage.\n## AI usage\nUsed AI for drafting.")
+    # Use 01_motivation.md so the success criteria check can find it
+    (content_dir / "01_motivation.md").write_text(
+        "The orbit altitude is 550 km.\nMinimal success: basic comms. Full success: all ops."
+    )
+    (content_dir / "02.md").write_text(
+        "Operations at altitude 550 km ensure full coverage.\n## AI usage\nUsed AI for drafting."
+    )
 
     config_path = write_config(tmp_path)
 
     # Write requirements with units so requirement_units check passes
+    # Use a unit that matches UNIT_PATTERN (e.g. "km", "W", "kg") — "Mbps" is not in pattern
     objectives = [
         {
             "id": "OBJ-01",
             "text": "Test objective",
             "requirements": [
-                {"id": "REQ-01", "text": "The satellite shall transmit at 1 Mbps data rate."},
+                {"id": "REQ-01", "text": "The satellite shall transmit at 550 km altitude."},
             ],
         }
     ]
@@ -126,7 +132,7 @@ def test_mass_over_budget_fails(tmp_path):
     """mass_budget.csv total > mass_kg in config → non-zero exit, FAIL in report."""
     content_dir = tmp_path / "content"
     content_dir.mkdir()
-    (content_dir / "01.md").write_text("Orbit altitude 550 km mission.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
+    (content_dir / "01_motivation.md").write_text("Orbit altitude 550 km mission.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
 
     config_path = write_config(tmp_path, {"mass_kg": 8})
 
@@ -162,7 +168,7 @@ def test_requirement_units_fail(tmp_path):
     """Requirement text with no number+unit → non-zero exit, FAIL in report."""
     content_dir = tmp_path / "content"
     content_dir.mkdir()
-    (content_dir / "01.md").write_text("Orbit altitude 550 km.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
+    (content_dir / "01_motivation.md").write_text("Orbit altitude 550 km.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
 
     config_path = write_config(tmp_path)
 
@@ -192,7 +198,7 @@ def test_tbd_csv_values_skipped(tmp_path):
     """mass_budget.csv with TBD mass_kg rows → no crash, report written."""
     content_dir = tmp_path / "content"
     content_dir.mkdir()
-    (content_dir / "01.md").write_text("Orbit altitude 550 km.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
+    (content_dir / "01_motivation.md").write_text("Orbit altitude 550 km.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
 
     config_path = write_config(tmp_path, {"mass_kg": 8})
 
@@ -227,17 +233,17 @@ def test_missing_budget_skipped(tmp_path):
     """No mass_budget.csv in tmp_path → exit 0, report written with skip note."""
     content_dir = tmp_path / "content"
     content_dir.mkdir()
-    (content_dir / "01.md").write_text("Orbit altitude 550 km.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
+    (content_dir / "01_motivation.md").write_text("Orbit altitude 550 km.\nMinimal success: ops. Full success: all.\n## AI usage\nUsed AI.")
 
     config_path = write_config(tmp_path)
 
-    # Write valid requirements
+    # Write valid requirements — use a unit matched by UNIT_PATTERN (km, W, kg, etc.)
     objectives = [
         {
             "id": "OBJ-01",
             "text": "Test objective",
             "requirements": [
-                {"id": "REQ-01", "text": "The satellite shall transmit at 1 Mbps data rate."},
+                {"id": "REQ-01", "text": "The satellite shall operate at 550 km altitude."},
             ],
         }
     ]
@@ -267,7 +273,8 @@ def test_report_always_written(tmp_path):
     """All checks pass → report file exists at --output path."""
     content_dir = tmp_path / "content"
     content_dir.mkdir()
-    (content_dir / "01.md").write_text(
+    # Use 01_motivation.md so success criteria check can find it
+    (content_dir / "01_motivation.md").write_text(
         "The orbit altitude is 550 km.\n"
         "Minimal success: basic comms operational.\n"
         "Full success: all mission objectives achieved.\n"
@@ -281,7 +288,8 @@ def test_report_always_written(tmp_path):
             "id": "OBJ-01",
             "text": "Test objective",
             "requirements": [
-                {"id": "REQ-01", "text": "The satellite shall transmit at 1 Mbps data rate."},
+                # Use a unit matched by UNIT_PATTERN (km, W, kg, etc.) — not "Mbps"
+                {"id": "REQ-01", "text": "The satellite shall operate at 550 km altitude."},
             ],
         }
     ]
