@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 01-04-PLAN.md (requirements.yaml + rtm_generator.py + pytest green)
+last_updated: "2026-03-21T11:36:25.809Z"
+last_activity: "2026-03-21 — 01-01 complete: pandoc scaffold + course_template.docx + Wave 0 test scaffold"
+progress:
+  total_phases: 5
+  completed_phases: 0
+  total_plans: 4
+  completed_plans: 3
+  percent: 75
+---
+
 # Project State
 
 ## Project Reference
@@ -14,7 +30,7 @@ Plan: 1 of 4 in current phase
 Status: In progress
 Last activity: 2026-03-21 — 01-01 complete: pandoc scaffold + course_template.docx + Wave 0 test scaffold
 
-Progress: [██░░░░░░░░] 5%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -34,6 +50,8 @@ Progress: [██░░░░░░░░] 5%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01 P02 | 2 | 2 tasks | 9 files |
+| Phase 01-core-pipeline P04 | 1 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -48,6 +66,10 @@ Recent decisions affecting current work:
 - `requirements.yaml` as structured requirements store for RTM auto-generation
 - python-docx body-stripping to extract course_template.docx — fully automated, no LibreOffice required [01-01]
 - Wave 0 TDD: test stubs fail with FileNotFoundError (not SyntaxError), confirming correct red state [01-01]
+- [Phase 01]: Used --from markdown+pipe_tables+grid_tables (pandoc 3.6.4 has no 'tables' extension; plan spec was invalid)
+- [Phase 01]: REPO_ROOT derived from SCRIPT_DIR in build_doc.sh for portability regardless of cwd
+- [Phase 01-core-pipeline]: Use req['id'] over req.get('id') for fail-loud KeyError on malformed YAML requirements
+- [Phase 01-core-pipeline]: YAML schema supports full 4-level nesting from day 1; RTM generator surfaces top 2 levels only for now
 
 ### Pending Todos
 
@@ -61,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21
-Stopped at: Completed 01-01-PLAN.md (pandoc scaffold + course_template.docx + Wave 0 tests). Ready for 01-02.
+Last session: 2026-03-21T11:36:25.800Z
+Stopped at: Completed 01-04-PLAN.md (requirements.yaml + rtm_generator.py + pytest green)
 Resume file: None

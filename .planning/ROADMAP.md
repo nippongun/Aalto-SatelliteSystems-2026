@@ -101,7 +101,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Pipeline | 1/4 | In progress | - |
+| 1. Core Pipeline | 3/4 | In Progress|  |
 | 2. Quality Gates | 0/2 | Not started | - |
 | 3. Engineering Calculators | 0/3 | Not started | - |
 | 4. Trade-off and Review Tools | 0/2 | Not started | - |
