@@ -13,7 +13,7 @@ Five phases deliver a complete Python + Pandoc toolchain for the Aalto ELEC-E424
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Core Pipeline** - Pandoc build pipeline, mission config, prompt templates, and RTM generator — required for Idea Review (2026-03-26)
-- [ ] **Phase 2: Quality Gates** - Consistency checker and milestone-aware pre-submit checklist
+- [x] **Phase 2: Quality Gates** - Consistency checker and milestone-aware pre-submit checklist (completed 2026-03-21)
 - [ ] **Phase 3: Engineering Calculators** - Link budget, mass/power budget, and orbital analysis tools
 - [ ] **Phase 4: Trade-off and Review Tools** - Trade-off matrix generator, rubric self-assessment prompt, and AI usage log generator
 - [ ] **Phase 5: Workflow Orchestration** - Full milestone runner script that chains all tools end-to-end
@@ -102,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Pipeline | 4/4 | Complete | 2026-03-21 |
-| 2. Quality Gates | 1/2 | In Progress|  |
+| 2. Quality Gates | 2/2 | Complete   | 2026-03-21 |
 | 3. Engineering Calculators | 0/3 | Not started | - |
 | 4. Trade-off and Review Tools | 0/2 | Not started | - |
 | 5. Workflow Orchestration | 0/2 | Not started | - |
