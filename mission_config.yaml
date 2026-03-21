@@ -12,3 +12,5 @@ payload_type: "TBD"
 frequency_GHz: 8.0
 tx_power_dBm: 30
 ground_station: "Aalto"
+authors: "TBD"
+google_doc_url: "https://YOUR_GOOGLE_DOC_URL_HERE"
