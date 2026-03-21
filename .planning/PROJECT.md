@@ -16,20 +16,20 @@ The Pandoc pipeline must work — without it, no other tool can produce course-r
 
 ### Active
 
-- [ ] Pandoc pipeline: `build_doc.sh` converts assembled Markdown → styled `.docx` using course template as reference doc
-- [ ] Template extraction: `course_template.docx` stripped of content, retaining all heading/paragraph styles
-- [ ] `mission_config.yaml`: single source of truth for mission parameters (altitude, mass, frequency, etc.)
-- [ ] Section prompt library: `prompts/` folder with parameterized `.md` prompts per feasibility study section, filled from `mission_config.yaml` and output ready to paste into Claude
-- [ ] RTM generator: reads `requirements/requirements.yaml` and outputs a Markdown RTM table
-- [ ] Consistency checker: Python script scanning all `content/*.md` for contradictions (altitude mismatches, budget overruns, orphaned requirements, missing units)
-- [ ] Pre-submit checklist: milestone-aware checklist script (`--milestone idea_review` etc.)
-- [ ] Link budget calculator: Python CLI script, outputs Markdown table ready for document insertion
-- [ ] Mass + power budget tool: reads `budgets/*.csv`, computes margins, flags if system margin <10%, outputs Markdown tables
-- [ ] Orbital analysis tool: altitude + inclination → period, contact time, eclipse fraction, weekly downlink capacity
-- [ ] Trade-off matrix generator: YAML-driven weighted scoring, outputs Markdown table
-- [ ] Rubric self-assessment prompt: prompt template that grades a document section against the SoW criteria
-- [ ] AI usage log + chapter generator: `ai_usage_log.yaml` → auto-generates the required AI usage chapter
-- [ ] Full milestone runner script: chains all tools for a given milestone target
+- [ ] PIPE-01 — Pandoc pipeline: `build_doc.sh` converts assembled Markdown → styled `.docx` using course template as reference doc
+- [ ] PIPE-02 — Template extraction: `course_template.docx` stripped of content, retaining all heading/paragraph styles
+- [ ] PIPE-03 — `mission_config.yaml`: single source of truth for mission parameters (altitude, mass, frequency, etc.)
+- [ ] PIPE-04 — Section prompt library: `prompts/` folder with parameterized `.md` prompts per feasibility study section, filled from `mission_config.yaml` and output ready to paste into Claude
+- [ ] PIPE-05 — RTM generator: reads `requirements/requirements.yaml` and outputs a Markdown RTM table
+- [ ] CHECK-01 — Consistency checker: Python script scanning all `content/*.md` for contradictions (altitude mismatches, budget overruns, orphaned requirements, missing units)
+- [ ] CHECK-02 — Pre-submit checklist: milestone-aware checklist script (`--milestone idea_review` etc.)
+- [ ] CALC-01 — Link budget calculator: Python CLI script, outputs Markdown table ready for document insertion
+- [ ] CALC-02 — Mass + power budget tool: reads `budgets/*.csv`, computes margins, flags if system margin <10%, outputs Markdown tables
+- [ ] CALC-03 — Orbital analysis tool: altitude + inclination → period, contact time, eclipse fraction, weekly downlink capacity
+- [ ] TRADE-01 — Trade-off matrix generator: YAML-driven weighted scoring, outputs Markdown table
+- [ ] QUAL-01 — Rubric self-assessment prompt: prompt template that grades a document section against the SoW criteria
+- [ ] LOG-01 — AI usage log + chapter generator: `ai_usage_log.yaml` → auto-generates the required AI usage chapter
+- [ ] ORCH-01 — Full milestone runner script: chains all tools for a given milestone target
 
 ### Out of Scope
 
@@ -66,5 +66,24 @@ The Pandoc pipeline must work — without it, no other tool can produce course-r
 | Single `mission_config.yaml` as source of truth | Mission concept not locked yet; parameterization means any concept can be swapped in | — Pending |
 | `requirements.yaml` as structured requirements store | Enables RTM auto-generation and orphan detection | — Pending |
 
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| PIPE-01 | Phase 1 | Pending |
+| PIPE-02 | Phase 1 | Pending |
+| PIPE-03 | Phase 1 | Pending |
+| PIPE-04 | Phase 1 | Pending |
+| PIPE-05 | Phase 1 | Pending |
+| CHECK-01 | Phase 2 | Pending |
+| CHECK-02 | Phase 2 | Pending |
+| CALC-01 | Phase 3 | Pending |
+| CALC-02 | Phase 3 | Pending |
+| CALC-03 | Phase 3 | Pending |
+| TRADE-01 | Phase 4 | Pending |
+| QUAL-01 | Phase 4 | Pending |
+| LOG-01 | Phase 4 | Pending |
+| ORCH-01 | Phase 5 | Pending |
+
 ---
-*Last updated: 2026-03-21 after initialization*
+*Last updated: 2026-03-21 — roadmap initialized, requirement IDs assigned*
