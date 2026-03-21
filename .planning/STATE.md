@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 01-04-PLAN.md (requirements.yaml + rtm_generator.py + pytest green)
-last_updated: "2026-03-21T11:36:25.809Z"
+last_updated: "2026-03-21T11:46:01.622Z"
 last_activity: "2026-03-21 — 01-01 complete: pandoc scaffold + course_template.docx + Wave 0 test scaffold"
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
   percent: 75
 ---
 
