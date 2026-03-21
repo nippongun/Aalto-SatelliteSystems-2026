@@ -45,11 +45,11 @@ Plans:
   1. Running `check_consistency.py content/` produces a `consistency_report.md` that correctly flags a deliberately introduced altitude mismatch across two section files as FAIL, and reports PASS when values agree
   2. Running `pre_submit_check.py --milestone idea_review` prints only the checklist items relevant to that milestone and exits non-zero when any item is unresolved
   3. The consistency checker flags a mass budget CSV where total mass exceeds the system dry mass value in `mission_config.yaml`
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Implement `scripts/check_consistency.py` with all seven checks (altitude, mass, power, requirement units, objective-to-requirement coverage, success criteria presence, AI usage section presence)
-- [ ] 02-02: Implement `scripts/pre_submit_check.py` with milestone-aware checklist; test against `idea_review`, `concept_review` targets
+- [ ] 02-01-PLAN.md — Add eps_power_W to mission_config.yaml; write test stubs for both scripts; implement `scripts/check_consistency.py` with all seven checks (CHECK-01)
+- [ ] 02-02-PLAN.md — Implement `scripts/pre_submit_check.py` with milestone-aware checklist; replace test stubs with full assertions (CHECK-02, COLLAB-02)
 
 ### Phase 3: Engineering Calculators
 **Goal**: Authors can run Python CLI scripts to compute link budget, mass/power margins, and orbital parameters, and paste the resulting Markdown tables directly into content sections
@@ -102,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Pipeline | 4/4 | Complete | 2026-03-21 |
-| 2. Quality Gates | 0/2 | Not started | - |
+| 2. Quality Gates | 0/2 | Planning | - |
 | 3. Engineering Calculators | 0/3 | Not started | - |
 | 4. Trade-off and Review Tools | 0/2 | Not started | - |
 | 5. Workflow Orchestration | 0/2 | Not started | - |
