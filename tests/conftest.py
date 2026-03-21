@@ -18,6 +18,8 @@ def tmp_config(tmp_path):
         "frequency_GHz": 8.0,
         "tx_power_dBm": 30,
         "ground_station": "Aalto",
+        "authors": "Test Author",
+        "google_doc_url": "https://example.com",
     }
     config_path = tmp_path / "mission_config.yaml"
     with open(config_path, "w") as f:
