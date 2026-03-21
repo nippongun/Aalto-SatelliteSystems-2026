@@ -9,8 +9,7 @@ requires: []
 provides:
   - "pandoc 3.x installed and verified (3.6.4)"
   - "9 repo directories scaffolded (templates, content, prompts, requirements, scripts, output, tests, budgets, tradeoffs)"
-  - "templates/course_template.docx with course heading styles (stripped from vault DOCX)"
-  - "templates/reference_base.docx (pandoc default reference doc)"
+  - "templates/course_template.docx — SoW styles + header/footer merged via lxml; full SoW visual identity"
   - "requirements.txt with pyyaml>=6.0 and pytest>=7.0"
   - ".gitignore covering output/ and /tmp/full_document.md"
   - "tests/conftest.py with tmp_config and tmp_prompts_dir fixtures"
@@ -42,7 +41,7 @@ key-files:
     - .gitignore
 
 key-decisions:
-  - "Use python-docx to strip body content from vault DOCX to produce course_template.docx (preserves all styles/fonts/margins without LibreOffice)"
+  - "Use lxml XML merge to build course_template.docx: SoW styles as base, pandoc paragraph styles updated to Arial, SoW header/footer wired in, Arial Black TTF embedded"
   - "Wave 0 test scaffold fails with FileNotFoundError (not SyntaxError) confirming correct RED state"
   - "test_config.py tests are GREEN now (pure yaml, no scripts needed) — validates fixture design"
 
@@ -85,8 +84,7 @@ Each task was committed atomically:
 **Plan metadata:** _(final docs commit to follow)_
 
 ## Files Created/Modified
-- `templates/course_template.docx` - Course heading styles from vault DOCX, body stripped, 75 KB
-- `templates/reference_base.docx` - Pandoc default reference doc (pre-existing, task 1)
+- `templates/course_template.docx` - Full SoW styles + header (A! logo, course name, live-doc link) + page number footer + A4 1-inch margins + embedded Arial Black font
 - `tests/conftest.py` - tmp_config and tmp_prompts_dir pytest fixtures
 - `tests/test_config.py` - 2 green tests: config loads, orbit_altitude_km == 550
 - `tests/test_generate_section.py` - RED stub: expects scripts/generate_section.py (not yet created)
@@ -95,7 +93,7 @@ Each task was committed atomically:
 - `.gitignore` - output/, /tmp/full_document.md, __pycache__, *.pyc, .pytest_cache (pre-existing, task 1)
 
 ## Decisions Made
-- Used python-docx body-stripping instead of LibreOffice to extract course styles — fully automated, no manual step required
+- Used lxml XML merge instead of python-docx body-strip — gives full control over which styles come from SoW vs pandoc base, and allows wiring in header/footer/fonts precisely
 - Wave 0 TDD pattern established: tests fail with FileNotFoundError (not SyntaxError), confirming test code itself is valid
 
 ## Deviations from Plan

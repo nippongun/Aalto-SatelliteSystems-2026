@@ -12,7 +12,7 @@ Five phases deliver a complete Python + Pandoc toolchain for the Aalto ELEC-E424
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Core Pipeline** - Pandoc build pipeline, mission config, prompt templates, and RTM generator — required for Idea Review (2026-03-26)
+- [x] **Phase 1: Core Pipeline** - Pandoc build pipeline, mission config, prompt templates, and RTM generator — required for Idea Review (2026-03-26)
 - [ ] **Phase 2: Quality Gates** - Consistency checker and milestone-aware pre-submit checklist
 - [ ] **Phase 3: Engineering Calculators** - Link budget, mass/power budget, and orbital analysis tools
 - [ ] **Phase 4: Trade-off and Review Tools** - Trade-off matrix generator, rubric self-assessment prompt, and AI usage log generator
@@ -25,7 +25,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Depends on**: Nothing (first phase)
 **Requirements**: PIPE-01, PIPE-02, PIPE-03, PIPE-04, PIPE-05
 **Success Criteria** (what must be TRUE):
-  1. Running `build_doc.sh` on assembled Markdown content produces a `.docx` whose heading styles match the course template (`course_template.docx`)
+  1. Running `build_doc.py` on assembled Markdown content produces a `.docx` whose heading styles match the course template (`course_template.docx`)
   2. `mission_config.yaml` exists with all mission parameters; changing a value (e.g. altitude) and rebuilding propagates the change into the generated document output
   3. Every feasibility study section has a corresponding parameterized prompt file in `prompts/`; running `generate_section.py --section motivation --config mission_config.yaml` prints a ready-to-paste Claude prompt with mission values substituted
   4. Running `rtm_generator.py` against `requirements/requirements.yaml` produces a complete Markdown RTM table with columns for requirement ID, text, and parent objective
@@ -33,9 +33,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Install pandoc, scaffold directories, extract course template styles, create Wave 0 test infrastructure
-- [ ] 01-02-PLAN.md — Write `scripts/build_doc.sh` and stub `content/0*.md` section files; verify Pandoc round-trip
+- [x] 01-02-PLAN.md — Write `scripts/build_doc.py` and stub `content/0*.md` section files; verify Pandoc round-trip
 - [x] 01-03-PLAN.md — Create `mission_config.yaml` and `scripts/generate_section.py`; write all `prompts/*.md` templates
-- [ ] 01-04-PLAN.md — Create `requirements/requirements.yaml` schema and `scripts/rtm_generator.py`; verify RTM table output
+- [x] 01-04-PLAN.md — Create `requirements/requirements.yaml` schema and `scripts/rtm_generator.py`; verify RTM table output
 
 ### Phase 2: Quality Gates
 **Goal**: Every submission passes automated consistency and completeness checks before the document is built
@@ -101,7 +101,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Pipeline | 3/4 | In Progress|  |
+| 1. Core Pipeline | 4/4 | Complete | 2026-03-21 |
 | 2. Quality Gates | 0/2 | Not started | - |
 | 3. Engineering Calculators | 0/3 | Not started | - |
 | 4. Trade-off and Review Tools | 0/2 | Not started | - |
