@@ -2,30 +2,76 @@
 # Schema: objectives → requirements → observation_reqs (optional) → instrument_reqs (optional)
 # Every requirement must have: id, text (with number+unit), verification_method
 # Verification methods: test | analysis | inspection | demonstration
-# Edit this file as the mission concept is defined.
 # Run: python scripts/rtm_generator.py
+#
+# STATUS: AI draft 2026-03-23 — AWAITING STUDENT CONFIRMATION
+# Requirements are the team's engineering decision. Review and confirm each REQ before committing.
 
 objectives:
   - id: OBJ-01
-    text: "TBD — Primary mission objective (replace when mission concept is defined)"
+    text: "Monitor atmospheric ozone column and CO total column over conflict and reference regions in Europe"
     requirements:
       - id: REQ-01
-        text: "The satellite shall [TBD primary function] with [TBD parameter] ≥ [TBD value] [TBD unit]"
+        text: "The mission shall detect total ozone column changes ≥ 5 DU above a seasonal baseline"
         verification_method: analysis
         observation_reqs:
           - id: OBS-01
-            text: "The payload shall [TBD observation parameter] at [TBD rate/resolution]"
+            text: "The UV spectrometer shall cover 270–340 nm with spectral resolution ≤ 1 nm FWHM"
+            verification_method: test
+          - id: OBS-02
+            text: "UV channel SNR shall be ≥ 100 at 305 nm for a Lambertian surface at nadir"
             verification_method: test
       - id: REQ-02
-        text: "The satellite shall cover [TBD coverage area] with revisit time ≤ [TBD] hours"
+        text: "The mission shall detect CO mixing ratio anomalies ≥ 50 ppb above a seasonal baseline"
         verification_method: analysis
+        observation_reqs:
+          - id: OBS-03
+            text: "The SWIR spectrometer shall cover 2.28–2.34 µm with spectral resolution ≤ 0.1 nm FWHM"
+            verification_method: test
+          - id: OBS-04
+            text: "SWIR channel SNR shall be ≥ 200 at 2.31 µm for a Lambertian surface at nadir"
+            verification_method: test
+      - id: REQ-03
+        text: "The ground swath width shall be ≥ 200 km per overpass"
+        verification_method: analysis
+      - id: REQ-04
+        text: "The revisit period at 50° N latitude shall be ≤ 5 days"
+        verification_method: analysis
+      - id: REQ-05
+        text: "Geolocation accuracy shall be ≤ 2 km (1σ) at nadir"
+        verification_method: test
+      - id: REQ-06
+        text: "Radiometric calibration accuracy shall be ≤ 3 % absolute"
+        verification_method: test
 
   - id: OBJ-02
-    text: "TBD — Data downlink objective (replace when link budget is defined)"
+    text: "Operate from a 3U CubeSat platform in Sun-Synchronous Orbit at 750 km altitude"
     requirements:
-      - id: REQ-03
-        text: "The downlink data rate shall be ≥ 1 Mbps at [TBD] km altitude"
-        verification_method: test
-      - id: REQ-04
-        text: "The satellite shall transmit collected data to ground within 24 hours of acquisition"
+      - id: REQ-07
+        text: "The satellite shall comply with the 3U CubeSat standard with total mass ≤ 4 kg"
+        verification_method: inspection
+      - id: REQ-08
+        text: "The mission shall achieve an operational lifetime ≥ 90 days after commissioning"
         verification_method: demonstration
+      - id: REQ-09
+        text: "The payload shall receive ≥ 3 W average electrical power during sunlit observation phases"
+        verification_method: analysis
+      - id: REQ-10
+        text: "Nadir-pointing accuracy shall be ≤ 1 ° (3σ) during science observation"
+        verification_method: test
+      - id: REQ-11
+        text: "Orbital lifetime after end of mission shall not exceed 25 years"
+        verification_method: analysis
+
+  - id: OBJ-03
+    text: "Deliver calibrated science data products to users within 24 hours of acquisition"
+    requirements:
+      - id: REQ-12
+        text: "Science data shall be downlinked to ground within 24 hours of acquisition"
+        verification_method: demonstration
+      - id: REQ-13
+        text: "Downlink data rate shall be ≥ 1 Mbps at 750 km slant range"
+        verification_method: test
+      - id: REQ-14
+        text: "On-board data storage shall hold ≥ 24 hours of science data pending downlink"
+        verification_method: inspection

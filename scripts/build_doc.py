@@ -69,10 +69,11 @@ def main() -> None:
     mission_name = config.get("mission_name", "Satellite Mission")
     authors = config.get("authors", "")
     build_date = date.today().isoformat()
+    doc_name = config.get("document_name", "mission_feasibility")
 
     # Assemble sections into a temporary file
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_file = output_dir / f"mission_feasibility_{date.today().strftime('%Y%m%d')}.docx"
+    output_file = output_dir / f"{doc_name}_{date.today().strftime('%Y%m%d')}.docx"
 
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".md", delete=False, encoding="utf-8"

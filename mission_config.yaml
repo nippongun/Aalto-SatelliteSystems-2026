@@ -1,17 +1,27 @@
 # mission_config.yaml — Single source of truth for all mission parameters
-# Edit this file to update all generated outputs. Mission concept TBD.
+# Edit this file to update all generated outputs.
 
-mission_name: "TBD"
-satellite_class: "CubeSat"
-mass_kg: 8
-orbit_type: "LEO"
-orbit_altitude_km: 550
-inclination_deg: 97.6
-mission_application: "TBD"
-payload_type: "TBD"
-frequency_GHz: 8.0
+mission_name: "AtmoSat-1"              # working name — team to confirm
+document_name: "SatelliteSystems-2026" # output DOCX filename stem
+satellite_class: "3U CubeSat"
+mass_kg: 4.0                           # 3U CubeSat typical max; to be refined in mass budget
+orbit_type: "SSO"                      # Sun-Synchronous Orbit
+orbit_altitude_km: 750                 # working value — team confirmed range 700–850 km, exact TBD
+inclination_deg: 98.0                  # SSO at 750 km; adjust if altitude changes
+mission_application: "Atmospheric monitoring of ozone and CO over European conflict and reference regions"
+payload_type: "UV spectrometer + SWIR spectrometer"
+payload_secondary: "Visible/NIR camera (albedo)"  # nice-to-have, not primary
+
+# RF / communications
+frequency_GHz: 8.0                     # X-band downlink (placeholder — to be confirmed)
 tx_power_dBm: 30
-eps_power_W: 30  # EPS power generation capacity in watts
+eps_power_W: 10                        # 3U solar panel generation estimate; to be refined
+
+# Ground segment
 ground_station: "Aalto"
-authors: "TBD"
-google_doc_url: "https://YOUR_GOOGLE_DOC_URL_HERE"
+
+# Team
+authors: "Maiju Alavuotunki · Alissa Lebedeva · Simon Bauer"
+
+# Document links
+google_doc_url: "https://docs.google.com/document/d/1DMcIpjzz6VhrpJAM9PQOc544N8h6UFNU"

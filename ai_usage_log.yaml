@@ -13,3 +13,9 @@
   sections: [design_log.md, KNOWLEDGE_BASE.md, AUTOMATION_PLAN.md, AGENT.md, README.md]
   usage: "Repository scaffolding, toolchain setup, knowledge base summary from course PDFs, workflow documentation"
   validation: "Cross-checked against original PDFs in vault/ and course SoW"
+
+- date: 2026-03-23
+  tool: "Claude Code (claude-sonnet-4-6)"
+  sections: [design_log.md, mission_config.yaml, ai_usage_log.yaml]
+  usage: "Logged team mission concept decisions from group chat (mission framing, orbit, payload, form factor); populated mission_config.yaml from TBD stubs"
+  validation: "Student (Simon) to verify mission_config.yaml values against team decisions before committing"

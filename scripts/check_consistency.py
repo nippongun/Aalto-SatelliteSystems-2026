@@ -32,7 +32,10 @@ ALTITUDE_CONTEXT = re.compile(
     re.IGNORECASE,
 )
 UNIT_PATTERN = re.compile(
-    r"\d+(?:\.\d+)?\s*(?:km|m|dB|W|kg|bps|MHz|GHz|°|deg|%|ms|s\b)"
+    r"\d+(?:\.\d+)?\s*"
+    r"(?:km|m\b|dB|W\b|kg|Mbps|bps|MHz|GHz|°|deg|%|ms|s\b"
+    r"|DU|ppb|ppm|nm|µm|um"
+    r"|days|hours|years|min\b)"
 )
 AI_HEADING = re.compile(r"^#+\s+AI\s+usage", re.IGNORECASE | re.MULTILINE)
 

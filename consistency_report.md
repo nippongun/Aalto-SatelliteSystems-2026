@@ -7,7 +7,7 @@ All altitude references are consistent.
 
 ## PASS: Mass budget
 
-Total mass 0.00 kg within limit 8 kg.
+Total mass 0.00 kg within limit 4.0 kg.
 
 - mass_budget.csv:2
 - mass_budget.csv:3
@@ -21,7 +21,7 @@ Total mass 0.00 kg within limit 8 kg.
 
 ## PASS: Power budget
 
-Total power 0.00 W within EPS capacity 30 W.
+Total power 0.00 W within EPS capacity 10 W.
 
 - power_budget.csv:2
 - power_budget.csv:3
@@ -32,9 +32,9 @@ Total power 0.00 W within EPS capacity 30 W.
 - power_budget.csv:8
 
 
-## FAIL: Requirement units
+## PASS: Requirement units
 
-Requirements missing a measurable unit: REQ-01, REQ-02, REQ-03, REQ-04
+All requirements contain a measurable unit.
 
 
 ## PASS: Objective coverage
@@ -49,16 +49,14 @@ All requirements have a verification_method.
 
 ## FAIL: REQ traceability to product assurance
 
-Requirements not referenced in 06_product_assurance.md: REQ-01, REQ-02, REQ-03, REQ-04
+Requirements not referenced in 06_product_assurance.md: REQ-01, REQ-02, REQ-03, REQ-04, REQ-05, REQ-06, REQ-07, REQ-08, REQ-09, REQ-10, REQ-11, REQ-12, REQ-13, REQ-14
 
 - 06_product_assurance.md
 
 
-## FAIL: Success criteria
+## PASS: Success criteria
 
-01_motivation.md is missing: "minimal success", "full success".
-
-- 01_motivation.md
+Both 'minimal success' and 'full success' criteria found in 01_motivation.md.
 
 
 ## FAIL: AI usage section
