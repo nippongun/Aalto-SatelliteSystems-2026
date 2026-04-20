@@ -28,6 +28,9 @@ def test_rtm_output(tmp_path):
     )
     assert result.returncode == 0, f"rtm_generator.py failed: {result.stderr}"
     output = result.stdout
-    assert "| Req ID |" in output, "Missing 'Req ID' column header"
+    assert "| Objectives and Drivers |" in output, "Missing 'Objectives and Drivers' column header"
+    assert "| Requirements |" in output, "Missing 'Requirements' column header"
+    assert "| Observation Requirements |" in output, "Missing 'Observation Requirements' column header"
+    assert "| Instrument Requirements |" in output, "Missing 'Instrument Requirements' column header"
     assert "REQ-01" in output, "Expected REQ-01 in output"
-    assert "OBJ-01" in output, "Expected OBJ-01 (parent) in output"
+    assert "OBJ-01" in output, "Expected OBJ-01 in output"

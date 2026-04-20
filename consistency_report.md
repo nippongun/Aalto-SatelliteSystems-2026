@@ -32,9 +32,9 @@ Total power 0.00 W within EPS capacity 10 W.
 - power_budget.csv:8
 
 
-## PASS: Requirement units
+## FAIL: Requirement units
 
-All requirements contain a measurable unit.
+Requirements missing a measurable unit: REQ-15, REQ-16, REQ-17
 
 
 ## PASS: Objective coverage
@@ -49,7 +49,7 @@ All requirements have a verification_method.
 
 ## FAIL: REQ traceability to product assurance
 
-Requirements not referenced in 06_product_assurance.md: REQ-01, REQ-02, REQ-03, REQ-04, REQ-05, REQ-06, REQ-07, REQ-08, REQ-09, REQ-10, REQ-11, REQ-12, REQ-13, REQ-14
+Requirements not referenced in 06_product_assurance.md: REQ-01, REQ-02, REQ-03, REQ-04, REQ-05, REQ-06, REQ-07, REQ-08, REQ-09, REQ-10, REQ-11, REQ-12, REQ-13, REQ-14, REQ-15, REQ-16, REQ-17, REQ-18
 
 - 06_product_assurance.md
 
@@ -59,7 +59,9 @@ Requirements not referenced in 06_product_assurance.md: REQ-01, REQ-02, REQ-03, 
 Both 'minimal success' and 'full success' criteria found in 01_motivation.md.
 
 
-## FAIL: AI usage section
+## PASS: AI usage section
 
-No content file contains a heading matching "# AI usage" (case-insensitive).
+AI usage heading found in 09_ai_usage.md.
+
+- 09_ai_usage.md
 

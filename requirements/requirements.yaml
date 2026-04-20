@@ -9,46 +9,54 @@
 
 objectives:
   - id: OBJ-01
-    text: "Monitor atmospheric ozone column and CO total column over conflict and reference regions in Europe"
+    text: "Monitor atmospheric ozone column and SWIR-band combustion anomalies over conflict and reference regions in Europe"
     requirements:
       - id: REQ-01
         text: "The mission shall detect total ozone column changes ≥ 5 DU above a seasonal baseline"
         verification_method: analysis
         observation_reqs:
           - id: OBS-01
-            text: "The UV spectrometer shall cover 270–340 nm with spectral resolution ≤ 1 nm FWHM"
+            text: "The ozone measurement channel shall cover 270–340 nm with spectral resolution ≤ 1.5 nm FWHM"
             verification_method: test
+            note: "Relaxed from 1 nm (2026-04-19): COTS miniature UV grating spectrometers (e.g. Ocean Insight STS-UV) achieve ~1.5 nm FWHM in the Huggins band range. Published DOAS ozone retrieval algorithms function at 1.5 nm when fit windows avoid narrow spectral features; 0.3 nm instruments (Avantes) are 3U-incompatible by mass."
           - id: OBS-02
             text: "UV channel SNR shall be ≥ 100 at 305 nm for a Lambertian surface at nadir"
-            verification_method: test
+            verification_method: analysis
+            note: "FLAG: achievability requires radiometric analysis (aperture, integration time, detector QE, optical throughput noise model) — not yet performed. To be verified at PDR. At 500 km LEO with a small CubeSat aperture, SNR at 305 nm (low solar flux + low detector QE) is at risk."
       - id: REQ-02
-        text: "The mission shall detect CO mixing ratio anomalies ≥ 50 ppb above a seasonal baseline"
+        text: "The mission shall detect statistically significant SWIR radiance anomalies (≥ 5% relative change) against a multi-temporal regional baseline as a secondary qualitative indicator of large-scale combustion events"
         verification_method: analysis
+        note: "Reframed from quantitative CO column retrieval (2026-04-19 review): NIRONE S2.2 at 10–15 nm FWHM cannot separate CO from H₂O at 2.3 µm — quantitative CO retrieval is not physically defensible. Recast as multi-temporal anomaly detection: detect relative radiance changes against a historical baseline for the same region/season. This is achievable with the selected sensor and produces a qualitative combustion event indicator suitable for co-location with fire radiative power data."
         observation_reqs:
           - id: OBS-03
-            text: "The SWIR spectrometer shall cover 2.28–2.34 µm with spectral resolution ≤ 0.1 nm FWHM"
-            verification_method: test
+            text: "The SWIR anomaly channel shall cover 2.28–2.34 µm with spectral resolution ≤ 15 nm FWHM and radiometric repeatability sufficient to detect relative radiance changes of ≥ 5% against a multi-temporal regional baseline"
+            verification_method: analysis
+            note: "Reframed from CO retrieval to anomaly detection (2026-04-19 review): quantitative CO column retrieval is not achievable at 10–15 nm FWHM due to H₂O interference and insufficient spectral context. Requirement now targets radiometric stability and repeatability for relative change detection. Absolute calibration accuracy less critical than repeatability for this objective."
           - id: OBS-04
             text: "SWIR channel SNR shall be ≥ 200 at 2.31 µm for a Lambertian surface at nadir"
-            verification_method: test
+            verification_method: analysis
+            note: "FLAG: achievability requires radiometric analysis (aperture, integration time, InGaAs detector noise, thermal background) — not yet performed. To be verified at PDR. SWIR SNR is limited by detector dark current and thermal emission at room temperature."
       - id: REQ-03
-        text: "The ground swath width shall be ≥ 200 km per overpass"
+        text: "The ground swath width shall be ≥ 150 km per overpass"
         verification_method: analysis
+        note: "Relaxed from 200 km (2026-04-19): altitude lowered to 500 km, swath scales proportionally with same instrument FOV. 150 km is achievable at 500 km with ±8.5° half-angle FOV."
       - id: REQ-04
-        text: "The revisit period at 50° N latitude shall be ≤ 5 days"
+        text: "The revisit period at 50° N latitude shall be ≤ 14 days"
         verification_method: analysis
+        note: "Relaxed from 5 days (2026-04-19): at 500 km SSO with 150 km swath, estimated revisit ~10–11 days. 14-day threshold provides margin. Scientifically justified: CO atmospheric lifetime ~1–2 months; mission goal is seasonal trend attribution, not event-triggered response. 90-day mission (REQ-08) yields ~6–9 measurement cycles."
       - id: REQ-05
-        text: "Geolocation accuracy shall be ≤ 2 km (1σ) at nadir"
+        text: "Geolocation accuracy shall be ≤ 10 km (1σ) at nadir"
         verification_method: test
+        note: "Relaxed from 2 km (2026-04-19): consistent with 1° (3σ) pointing accuracy at 500 km altitude (pointing error 1σ ≈ 0.33° → ~2.9 km) and standard for atmospheric column retrieval instruments (cf. Sentinel-5P ~5 km)."
       - id: REQ-06
         text: "Radiometric calibration accuracy shall be ≤ 3 % absolute"
         verification_method: test
 
   - id: OBJ-02
-    text: "Operate from a 3U CubeSat platform in Sun-Synchronous Orbit at 750 km altitude"
+    text: "Operate from a 3U CubeSat platform in Sun-Synchronous Orbit at 500 km altitude"
     requirements:
       - id: REQ-07
-        text: "The satellite shall comply with the 3U CubeSat standard with total mass ≤ 4 kg"
+        text: "The satellite total mass shall be ≤ 4 kg and the envelope shall not exceed 10 cm × 10 cm × 30 cm"
         verification_method: inspection
       - id: REQ-08
         text: "The mission shall achieve an operational lifetime ≥ 90 days after commissioning"
@@ -62,6 +70,7 @@ objectives:
       - id: REQ-11
         text: "Orbital lifetime after end of mission shall not exceed 25 years"
         verification_method: analysis
+        note: "Satisfied passively at 500 km SSO: atmospheric drag gives natural decay in ~7–12 years (solar cycle dependent). No propulsion or drag sail required."
 
   - id: OBJ-03
     text: "Deliver calibrated science data products to users within 24 hours of acquisition"
@@ -72,6 +81,28 @@ objectives:
       - id: REQ-13
         text: "Downlink data rate shall be ≥ 1 Mbps at 750 km slant range"
         verification_method: test
+        note: "FLAG: achievability depends on frequency band — 1 Mbps feasible on X-band, NOT on UHF amateur band (~9.6 kbps max). Confirm frequency before locking this requirement."
       - id: REQ-14
         text: "On-board data storage shall hold ≥ 24 hours of science data pending downlink"
         verification_method: inspection
+
+  - id: OBJ-04
+    text: "Comply with all legal, regulatory, and launch provider requirements for satellite operation"
+    note: "AI draft 2026-04-19 — AWAITING STUDENT CONFIRMATION"
+    requirements:
+      - id: REQ-15
+        text: "The mission shall obtain authorisation for space activities from the Finnish Ministry of Economic Affairs and Employment prior to launch"
+        verification_method: inspection
+        note: "Finnish Act on Space Activities (in force 2018-01-23). Ref: tem.fi/en/spacelaw"
+      - id: REQ-16
+        text: "The satellite shall operate only on radio frequencies for which a licence has been obtained via FICORA and coordinated with ITU"
+        verification_method: inspection
+        note: "FICORA = Finnish Communications Regulatory Authority (Viestintävirasto). Licence applied via national Radio Amateur Organization if using amateur bands."
+      - id: REQ-17
+        text: "The satellite shall pass a vibration test campaign prior to launch in accordance with the launch provider's qualification requirements"
+        verification_method: test
+        note: "Vibration test report required by every launch provider. Additional tests (thermal vacuum, EMC, radiation) typically also required."
+      - id: REQ-18
+        text: "The satellite shall comply with ESA space debris mitigation guidelines: re-entry or graveyard orbit within 25 years after end of mission"
+        verification_method: analysis
+        note: "Satisfied passively at 500 km SSO: decay in ~7–12 years. Previous note flagging 750 km as non-compliant is resolved by altitude change (2026-04-19)."

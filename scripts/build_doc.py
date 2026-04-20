@@ -101,7 +101,39 @@ def main() -> None:
     finally:
         tmp_path.unlink(missing_ok=True)
 
+    _fix_toc_field(output_file)
     print(f"Built: {output_file}")
+
+
+def _fix_toc_field(docx_path: pathlib.Path) -> None:
+    """Replace pandoc's outline-level TOC field with a style-name TOC field.
+
+    pandoc emits  TOC \\o "1-3"  which requires outline levels to be set in
+    the template styles.  Switching to  TOC \\t "Heading 1,1,..."  works on
+    any template that uses standard heading style names.
+    """
+    import zipfile, shutil
+
+    import re as _re
+    old_pattern = _re.compile(r'TOC\\o\s*&quot;1-3&quot;(\s*\\[hzu])*|TOC\s*\\[to][^\s<]*[^<]*?(?=</w:instrText>)')
+
+    tmp = docx_path.with_suffix(".tmp.docx")
+    shutil.copy2(docx_path, tmp)
+    with zipfile.ZipFile(tmp, "r") as zin, zipfile.ZipFile(docx_path, "w", zipfile.ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename == "word/document.xml":
+                text = data.decode("utf-8")
+                # Replace the full instrText content between the tags
+                text = _re.sub(
+                    r'(<w:instrText[^>]*>)[^<]*(</w:instrText>)',
+                    lambda m: m.group(1) + r'TOC \t &quot;Heading 1,1,Heading 2,2,Heading 3,3&quot; \h' + m.group(2),
+                    text,
+                    count=1,
+                )
+                data = text.encode("utf-8")
+            zout.writestr(item, data)
+    tmp.unlink()
 
 
 if __name__ == "__main__":

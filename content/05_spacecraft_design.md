@@ -1,5 +1,3 @@
 # Spacecraft Design
 
-<!-- TODO: replace with authored content -->
-
-*Section placeholder.*
+*To be completed at Preliminary Design Review (due 2026-05-07).*

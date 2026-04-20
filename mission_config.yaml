@@ -6,8 +6,8 @@ document_name: "SatelliteSystems-2026" # output DOCX filename stem
 satellite_class: "3U CubeSat"
 mass_kg: 4.0                           # 3U CubeSat typical max; to be refined in mass budget
 orbit_type: "SSO"                      # Sun-Synchronous Orbit
-orbit_altitude_km: 750                 # working value — team confirmed range 700–850 km, exact TBD
-inclination_deg: 98.0                  # SSO at 750 km; adjust if altitude changes
+orbit_altitude_km: 500                 # confirmed 2026-04-19 — lowered from 750 km for passive 25-year deorbit compliance
+inclination_deg: 97.4                  # SSO at 500 km
 mission_application: "Atmospheric monitoring of ozone and CO over European conflict and reference regions"
 payload_type: "UV spectrometer + SWIR spectrometer"
 payload_secondary: "Visible/NIR camera (albedo)"  # nice-to-have, not primary

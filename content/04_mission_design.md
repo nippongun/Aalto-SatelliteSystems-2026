@@ -1,5 +1,3 @@
 # Mission Design
 
-<!-- TODO: replace with authored content -->
-
-*Section placeholder. Run `generate_section.py --section ops_concept` to get the Claude prompt.*
+*To be completed at Preliminary Design Review (due 2026-05-07).*

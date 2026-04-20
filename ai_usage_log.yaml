@@ -19,3 +19,9 @@
   sections: [design_log.md, mission_config.yaml, ai_usage_log.yaml]
   usage: "Logged team mission concept decisions from group chat (mission framing, orbit, payload, form factor); populated mission_config.yaml from TBD stubs"
   validation: "Student (Simon) to verify mission_config.yaml values against team decisions before committing"
+
+- date: 2026-04-19
+  tool: "Claude Code (claude-sonnet-4-6)"
+  sections: [KNOWLEDGE_BASE.md, requirements/requirements.yaml, design_log.md, content/08_permits.md, content/09_ai_usage.md]
+  usage: "Concept Review prep: created KNOWLEDGE_BASE.md at repo root; added OBJ-04/REQ-15-18 (compliance requirements); drafted 08_permits.md (Finnish space law, RF licence, disposal, testing, export); flagged SMART violations and frequency band inconsistency; corrected payload classification (navigation system = bus); drafted AI usage chapter"
+  validation: "Automated verifier agent checked all files; student (Simon) to review 08_permits.md and confirm requirements.yaml wording before submission"

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Generate a Markdown Requirements Traceability Matrix (RTM) from requirements.yaml.
+"""Generate a 4-column SoW RTM from requirements.yaml.
 
 Usage:
     python scripts/rtm_generator.py
     python scripts/rtm_generator.py --requirements path/to/requirements.yaml
 
-Output: Markdown table with columns: Req ID | Requirement Text | Parent Objective
+Output: Markdown table with columns:
+    Objectives and Drivers | Requirements | Observation Requirements | Instrument Requirements
+
+One row per leaf node (instrument_req if present, else obs_req, else req).
 """
 import argparse
 import pathlib
@@ -14,24 +17,34 @@ import sys
 import yaml
 
 
-def flatten_requirements(objectives: list) -> list:
-    """Flatten nested objectives/requirements to (req_id, req_text, parent_obj_id) rows.
+def _cell(id_: str, text: str) -> str:
+    return f"**{id_}** {text}"
 
-    Only flattens the first level of requirements under each objective.
-    observation_reqs and instrument_reqs are preserved in the YAML but not yet
-    included in the RTM output (extend this function in a future phase if needed).
-    """
+
+def build_rtm_rows(objectives: list) -> list[tuple[str, str, str, str]]:
     rows = []
     for obj in objectives:
-        obj_id = obj["id"]   # KeyError if malformed — intentional, fail loud
+        obj_cell = _cell(obj["id"], obj["text"])
         for req in obj.get("requirements", []):
-            rows.append((req["id"], req["text"], obj_id))   # KeyError if malformed
+            req_cell = _cell(req["id"], req["text"])
+            obs_reqs = req.get("observation_reqs", [])
+            if not obs_reqs:
+                rows.append((obj_cell, req_cell, "—", "—"))
+                continue
+            for obs in obs_reqs:
+                obs_cell = _cell(obs["id"], obs["text"])
+                instr_reqs = obs.get("instrument_reqs", [])
+                if not instr_reqs:
+                    rows.append((obj_cell, req_cell, obs_cell, "—"))
+                else:
+                    for instr in instr_reqs:
+                        rows.append((obj_cell, req_cell, obs_cell, _cell(instr["id"], instr["text"])))
     return rows
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Generate a Markdown RTM table from requirements.yaml"
+        description="Generate a 4-column SoW Markdown RTM from requirements.yaml"
     )
     parser.add_argument(
         "--requirements",
@@ -52,13 +65,14 @@ def main() -> None:
     if not objectives:
         print("WARNING: No objectives found in requirements YAML", file=sys.stderr)
 
-    rows = flatten_requirements(objectives)
+    rows = build_rtm_rows(objectives)
 
-    # Markdown table output
-    print("| Req ID | Requirement Text | Parent Objective |")
-    print("|--------|-----------------|-----------------|")
-    for req_id, req_text, parent_id in rows:
-        print(f"| {req_id} | {req_text} | {parent_id} |")
+    header = "| Objectives and Drivers | Requirements | Observation Requirements | Instrument Requirements |"
+    sep    = "|------------------------|--------------|--------------------------|------------------------|"
+    print(header)
+    print(sep)
+    for obj_c, req_c, obs_c, instr_c in rows:
+        print(f"| {obj_c} | {req_c} | {obs_c} | {instr_c} |")
 
 
 if __name__ == "__main__":
